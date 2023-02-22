@@ -13,7 +13,7 @@ var matrix = new Matrix(height, width );
 matrix.FillСonsistently();
 matrix.Print();
 
-Console.WriteLine("Shake print: " + matrix.PrintSnake());
+Console.WriteLine("Shake print: " + matrix.PrintSnakeNew());
 
 
 

@@ -80,6 +80,9 @@ public class Matrix
     public string PrintSnake()
     {
         int iter = (int)Math.Ceiling(Math.Min(RowsCount, ColumnCount) / 2.0);
+
+        Console.WriteLine(iter);
+
         int i = 0, j = 0, k = 0;
 
         var str = new StringBuilder();
@@ -99,8 +102,8 @@ public class Matrix
                 i++;
             }
 
-            //if (k == iter - 1)
-            //    break;
+            if (k == iter - 1)
+                break;
 
             while (j > k)
             {
@@ -121,6 +124,50 @@ public class Matrix
         }
 
         return str.ToString().Substring(2);
+    }
+
+    public string PrintSnakeNew()
+    {
+        var result = new StringBuilder();
+
+        int left = 0, right = ColumnCount - 1, top = 0 , bottom = RowsCount - 1;
+        int direction = 0;
+ 
+        while (left <= right && top <= bottom)
+        {
+            if (direction == 0)
+            {
+                for(int j = left; j <= right; j++)
+                    result.Append(", " + Array[top, j]);
+                top++;
+            }
+
+            if (direction == 1)
+            {
+                for (int i = top; i <= bottom; i++)
+                    result.Append(", " + Array[i, right]);
+                right--;
+            }
+
+            if (direction == 2)
+            {
+                for(int j = right; j >= left; j--)
+                    result.Append(", " + Array[bottom, j]);
+                bottom--;
+            }
+
+            if (direction == 3)
+            {
+                for(int i = bottom; i>= top; i--)
+                    result.Append(", " + Array[i, left]);
+                left++;
+            }
+
+            direction = (direction + 1) % 4;
+
+        }
+
+        return result.ToString().Substring(2);
     }
 
 }
