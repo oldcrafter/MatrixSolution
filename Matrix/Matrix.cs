@@ -79,55 +79,6 @@ public class Matrix
 
     public string PrintSnake()
     {
-        int iter = (int)Math.Ceiling(Math.Min(RowsCount, ColumnCount) / 2.0);
-
-        Console.WriteLine(iter);
-
-        int i = 0, j = 0, k = 0;
-
-        var str = new StringBuilder();
-
-        while (k < iter)
-        { 
-            while (j < ColumnCount - k - 1)
-            {
-                str.Append(", " + Array[i, j]);
-                j++;
-            }
-
-
-            while (i < RowsCount - k - 1 )
-            {
-                str.Append(", " + Array[i, j]);
-                i++;
-            }
-
-            if (k == iter - 1)
-                break;
-
-            while (j > k)
-            {
-                str.Append(", " + Array[i, j]);
-                j--;
-            }
-
-
-            while (i > k)
-            {
-                str.Append(", " + Array[i, j]);
-                i--;
-            }
-
-            k++;
-            i++;
-            j++;
-        }
-
-        return str.ToString().Substring(2);
-    }
-
-    public string PrintSnakeNew()
-    {
         var result = new StringBuilder();
 
         int left = 0, right = ColumnCount - 1, top = 0 , bottom = RowsCount - 1;
