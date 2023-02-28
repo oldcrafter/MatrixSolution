@@ -1,33 +1,15 @@
 ﻿namespace MatrixProject;
+
 public static class MatrixHelper
 {
-    public static Matrix GetMatrix(int rowsCount, int columnsCount)
-    {
-        Matrix matrix;
-        try {
-            matrix = new Matrix(rowsCount, columnsCount);
-            return matrix;
-        }
-        catch (InvalidMatrixDimensionException ex)
-        {
-            Console.WriteLine(ex.Message);
-            throw;
-        }
-    }
-
     public static int InputDimension(DimensionType dimensionType)
     {
-        var prompt = string.Empty;
-
-        switch (dimensionType)
+        var prompt = dimensionType switch
         {
-            case DimensionType.RowsCount:
-                prompt = "Input array's height";
-                break;
-            case DimensionType.ColumnsCount:
-                prompt = "Input array's width";
-                break;
-        }
+            DimensionType.RowsCount => "Input array's height",
+            DimensionType.ColumnsCount => "Input array's width",
+            _ => string.Empty
+        };
 
         int result = 0;
         var isCorrectInput = false;
@@ -56,7 +38,7 @@ public static class MatrixHelper
         return result;
     }
     
-    public static void PrintToConcole(Matrix matrix)
+    public static void PrintToConsole(Matrix matrix)
     {
         Console.WriteLine("--------    MATRIX:    ---------- \n");
 
