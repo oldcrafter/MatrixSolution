@@ -24,7 +24,7 @@ while (isCorrectInput == false)
     }
     catch (Exception ex)
     {
-        Console.WriteLine(ex.Source.ToString() +  ex.Message + "TRY AGAIN! \n");
+        Console.WriteLine(ex.Message);
     }
 }
 
