@@ -4,6 +4,7 @@ public static class MatrixHelper
 {
     public static int InputDimension(DimensionType dimensionType)
     {
+
         var prompt = dimensionType switch
         {
             DimensionType.RowsCount => "Input array's height",
@@ -22,6 +23,8 @@ public static class MatrixHelper
             {
                 result = Int32.Parse(input);
                 isCorrectInput = true;
+                if (result < 1)
+                    throw new InvalidMatrixDimensionException(null, null);
             }
             catch (FormatException)
             {
@@ -33,6 +36,12 @@ public static class MatrixHelper
                 Console.WriteLine("'{0}' is out of range of the Int32 type.", input);
                 isCorrectInput = false;
             }
+            catch (InvalidMatrixDimensionException)
+            {
+                Console.WriteLine("Matrix Dimension can`t be zero or negative", input);
+                isCorrectInput = false;
+            }
+
         }
 
         return result;
