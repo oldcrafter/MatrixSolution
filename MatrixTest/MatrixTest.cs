@@ -30,4 +30,13 @@ public class Tests
         var printSnake = matrix.PrintSnake();
         Assert.That(printSnake, Is.EqualTo("0, 1, 2, 3, 7, 11, 15, 14, 13, 12, 8, 4, 5, 6, 10, 9"));
     }
+
+    [TestCase("-1")]
+    [TestCase("fhg")]
+    [TestCase("1234567890123")]
+    public void Test_GetDimensionValueFromInput(string input)
+    {
+        var result = MatrixHelper.GetDimensionValueFromInput(input);
+        Assert.That(result, Is.EqualTo(null));
+    }
 }

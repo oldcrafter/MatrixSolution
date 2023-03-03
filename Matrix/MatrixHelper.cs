@@ -5,6 +5,22 @@ public static class MatrixHelper
     public static int InputDimension(DimensionType dimensionType)
     {
 
+        var prompt = GetPompt(dimensionType);
+
+        int? result = null;
+
+        while (result is null)
+        {
+            Console.Write(prompt + " : ");
+            var input = Console.ReadLine();
+            result = GetDimensionValueFromInput(input);
+        }
+
+        return (int)result;
+    }
+
+    private static string GetPompt(DimensionType dimensionType)
+    {
         var prompt = dimensionType switch
         {
             DimensionType.RowsCount => "Input array's height",
@@ -12,36 +28,31 @@ public static class MatrixHelper
             _ => string.Empty
         };
 
-        int result = 0;
-        var isCorrectInput = false;
+        return prompt;
+    }
 
-        while (isCorrectInput == false)
+    public static int? GetDimensionValueFromInput(string? input)
+    {
+        int? result = null;
+
+        try
         {
-            Console.Write(prompt + " : ");
-            var input = Console.ReadLine();
-            try
-            {
-                result = Int32.Parse(input);
-                isCorrectInput = true;
-                if (result < 1)
-                    throw new InvalidMatrixDimensionException(null, null);
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Unable to convert '{0}'.", input);
-                isCorrectInput = false;
-            }
-            catch (OverflowException)
-            {
-                Console.WriteLine("'{0}' is out of range of the Int32 type.", input);
-                isCorrectInput = false;
-            }
-            catch (InvalidMatrixDimensionException)
-            {
-                Console.WriteLine("Matrix Dimension can`t be zero or negative", input);
-                isCorrectInput = false;
-            }
-
+            result = Int32.Parse(input);
+            if (result < 1)
+                throw new InvalidMatrixDimensionException(null, null);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Unable to convert '{0}'.", input);
+        }
+        catch (OverflowException)
+        {
+            Console.WriteLine("'{0}' is out of range of the Int32 type.", input);
+        }
+        catch (InvalidMatrixDimensionException)
+        {
+            Console.WriteLine("Matrix dimension can`t be zero or negative", input);
+            return null;
         }
 
         return result;
