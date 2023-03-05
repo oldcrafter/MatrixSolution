@@ -30,9 +30,9 @@ internal class MatrixSnake : Matrix
     {
         Reset();
 
-        while (CheckForNextValue() == true) 
+        while (TryToMove() == true) 
         {
-            MoveForward();
+            ChangeCurrentPosition();
             AppendCurrentValue();
         }
 
@@ -44,7 +44,7 @@ internal class MatrixSnake : Matrix
         Trace.Append(Separator).Append(Array[_currentRow, _currentCol]).ToString();
     }
 
-    private void MoveForward()
+    private void ChangeCurrentPosition()
     {
         switch (_direction)
         {
@@ -63,7 +63,7 @@ internal class MatrixSnake : Matrix
         }
     }
 
-    private bool CheckForNextValue()
+    private bool TryToMove()
     {
         var changeDirectionCount = 0;
 
