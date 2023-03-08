@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MatrixProject;
-internal class MatrixSnake : Matrix
+public class MatrixSnake 
 {
     private const string Separator = ", ";
     
@@ -21,9 +21,22 @@ internal class MatrixSnake : Matrix
 
     private MovementDirection _direction = MovementDirection.Right;
 
-    public MatrixSnake(int rowsCount, int columnsCount) : base(rowsCount, columnsCount)
-    { 
+    private Matrix _matrix;
+    
+    public MatrixSnake(int row, int col) 
+    {
+        _matrix = new Matrix(row, col);
         Trace = new StringBuilder();
+    }
+
+    public void FillRandom()
+    {
+        _matrix.FillRandom();
+    }
+
+    public void FillConsistently()
+    {
+        _matrix.FillConsistently();
     }
 
     public string GetTrace()
@@ -39,28 +52,26 @@ internal class MatrixSnake : Matrix
         return Trace.ToString().Substring(2);
     }
 
+    public void ToConsole()
+    {
+        MatrixHelper.PrintToConsole(_matrix);
+    }
+
     private void AppendCurrentValue()
     {
-        Trace.Append(Separator).Append(Array[_currentRow, _currentCol]).ToString();
+        Trace.Append(Separator).Append(_matrix.GetValue(_currentRow, _currentCol)).ToString();
     }
 
     private void ChangeCurrentPosition()
     {
-        switch (_direction)
-        {
-            case MovementDirection.Right:
-                _currentCol++;
-                break;
-            case MovementDirection.Left:
-                _currentCol--;
-                break;
-            case MovementDirection.Down:
-                _currentRow++;
-                break;
-            case MovementDirection.Up:
-                _currentRow--;
-                break;
-        }
+        if (_direction == MovementDirection.Right)
+            _currentCol++;
+        if (_direction == MovementDirection.Left)
+            _currentCol--;
+        if (_direction == MovementDirection.Down)
+            _currentRow++;
+        if (_direction == MovementDirection.Up)
+            _currentRow--;
     }
 
     private bool TryToMove()
@@ -134,9 +145,9 @@ internal class MatrixSnake : Matrix
     private void Reset()
     {
         _leftBound = 0;
-        _rightBound = ColumnCount - 1;
+        _rightBound = _matrix.ColumnCount - 1;
         _topBound = 0;
-        _bottomBound = RowsCount - 1;
+        _bottomBound = _matrix.RowsCount - 1;
 
         _currentRow = 0;
         _currentCol = 0;

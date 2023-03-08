@@ -18,7 +18,7 @@ while (isCorrectInput == false)
         else
             matrix.FillConsistently();
 
-        MatrixHelper.PrintToConsole(matrix);
+        matrix.ToConsole();
 
         Console.WriteLine("Matrix track: " + matrix.GetTrace());
     }
