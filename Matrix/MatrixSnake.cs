@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace MatrixProject;
 public class MatrixSnake 
@@ -43,7 +39,7 @@ public class MatrixSnake
     {
         Reset();
 
-        while (TryToMove() == true) 
+        while (TryToMove()) 
         {
             ChangeCurrentPosition();
             AppendCurrentValue();
@@ -91,7 +87,7 @@ public class MatrixSnake
 
     private void CheckForArriveTopBound(ref int changeDirectionCount)
     {
-        if (_direction == MovementDirection.Up && _currentRow == _topBound)  //<
+        if (_direction == MovementDirection.Up && _currentRow == _topBound)  
         {
             ChangeDirection();
             _leftBound++;

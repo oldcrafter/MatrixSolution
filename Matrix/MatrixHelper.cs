@@ -37,7 +37,7 @@ public static class MatrixHelper
 
         try
         {
-            result = Int32.Parse(input);
+            result = int.Parse(input);
             if (result < 1)
                 throw new InvalidMatrixDimensionException(null, null);
         }

@@ -1,7 +1,4 @@
-﻿using System.Text;
-//using System.Threading.Tasks;
-
-namespace MatrixProject;
+﻿namespace MatrixProject;
 
 public class Matrix
 {
