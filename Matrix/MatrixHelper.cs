@@ -58,7 +58,7 @@ public static class MatrixHelper
         return result;
     }
     
-    public static void PrintToConsole(Matrix matrix)
+    public static void ToConsole(Matrix matrix)
     {
         Console.WriteLine("--------    MATRIX:    ---------- \n");
 

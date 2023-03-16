@@ -40,14 +40,16 @@ public class Matrix
                 Array[i, j] = currentValue ++;
     }
 
-    public int Track()
+    public int GetTrace()
     {
         var sum = 0;
+        var k = 0;
 
-        for (var i = 0; i < _columnCount; i++)
-            for (var j = 0; j < _rowsCount; j++)
-                if (i == j)
-                    sum += Array[i, j];
+        while (k < _rowsCount && k < _columnCount)
+        {
+            sum += Array[k, k];
+            k++;
+        }
 
         return sum;
     }

@@ -1,10 +1,11 @@
 ﻿using System.Text;
 
 namespace MatrixProject;
-public class MatrixSnake 
+
+public class MatrixSnake
 {
     private const string Separator = ", ";
-    
+
     private int _leftBound;
     private int _rightBound;
     private int _topBound;
@@ -16,41 +17,27 @@ public class MatrixSnake
     public StringBuilder Trace { get; }
 
     private MovementDirection _direction = MovementDirection.Right;
+    private int _changeDirectionCount;
 
     private Matrix _matrix;
-    
-    public MatrixSnake(int row, int col) 
+
+    public MatrixSnake(Matrix matrix)
     {
-        _matrix = new Matrix(row, col);
+        _matrix = matrix;
         Trace = new StringBuilder();
     }
 
-    public void FillRandom()
-    {
-        _matrix.FillRandom();
-    }
-
-    public void FillConsistently()
-    {
-        _matrix.FillConsistently();
-    }
-
-    public string GetTrace()
+    public string GetSnake()
     {
         Reset();
 
-        while (TryToMove()) 
+        while (TryToMove())
         {
             ChangeCurrentPosition();
             AppendCurrentValue();
         }
 
         return Trace.ToString().Substring(2);
-    }
-
-    public void ToConsole()
-    {
-        MatrixHelper.PrintToConsole(_matrix);
     }
 
     private void AppendCurrentValue()
@@ -72,58 +59,58 @@ public class MatrixSnake
 
     private bool TryToMove()
     {
-        var changeDirectionCount = 0;
+        _changeDirectionCount = 0;
 
-        CheckForArriveRightBound(ref changeDirectionCount);
-        CheckForArriveBottomBound(ref changeDirectionCount);
-        CheckForArriveLeftBound(ref changeDirectionCount);
-        CheckForArriveTopBound(ref changeDirectionCount);
+        CheckForArriveRightBound();
+        CheckForArriveBottomBound();
+        CheckForArriveLeftBound();
+        CheckForArriveTopBound();
 
-        if (changeDirectionCount > 1)
+        if (_changeDirectionCount > 1)
             return false;
 
         return true;
     }
 
-    private void CheckForArriveTopBound(ref int changeDirectionCount)
+    private void CheckForArriveTopBound()
     {
-        if (_direction == MovementDirection.Up && _currentRow == _topBound)  
-        {
-            ChangeDirection();
-            _leftBound++;
-            changeDirectionCount++;
-        }
+        if (_direction != MovementDirection.Up || _currentRow != _topBound)
+            return;
 
+        ChangeDirection();
+        _leftBound++;
+        _changeDirectionCount++;
     }
 
-    private void CheckForArriveLeftBound(ref int changeDirectionCount)
+    private void CheckForArriveLeftBound()
     {
-        if (_direction == MovementDirection.Left && _currentCol == _leftBound)
-        {
-            ChangeDirection();
-            _bottomBound--;
-            changeDirectionCount++;
-        }
+        if (_direction != MovementDirection.Left || _currentCol != _leftBound)
+            return;
+
+        ChangeDirection();
+        _bottomBound--;
+        _changeDirectionCount++;
     }
 
-    private void CheckForArriveBottomBound(ref int changeDirectionCount)
+    private void CheckForArriveBottomBound()
     {
-        if (_direction == MovementDirection.Down && _currentRow == _bottomBound)
-        {
-            ChangeDirection();
-            _rightBound--;
-            changeDirectionCount++;
-        }
+        if (_direction != MovementDirection.Down || _currentRow != _bottomBound)
+            return;
+
+        ChangeDirection();
+        _rightBound--;
+        _changeDirectionCount++;
     }
 
-    private void CheckForArriveRightBound(ref int changeDirectionCount)
+    private void CheckForArriveRightBound()
     {
-        if (_direction == MovementDirection.Right && _currentCol == _rightBound)
-        {
-            ChangeDirection();
-            _topBound++;
-            changeDirectionCount++;
-        }
+        if (_direction != MovementDirection.Right || _currentCol != _rightBound)
+            return;
+        
+        ChangeDirection();
+        _topBound++;
+        _changeDirectionCount++;
+        
     }
 
     private void ChangeDirection()
@@ -147,6 +134,7 @@ public class MatrixSnake
 
         _currentRow = 0;
         _currentCol = 0;
+        _changeDirectionCount = 0;
 
         Trace.Clear();
 
